@@ -42,6 +42,13 @@ module Checkr
         report.save
         assert_equal(test_report[:package], report.package)
       end
+
+      should 'be completeable' do
+        @mock.expects(:post).once.with("#{@report_url}/#{test_report[:id]}/complete", anything, anything).returns(test_response(test_report))
+        report = Report.new(test_report)
+        report.complete
+        assert_equal(test_report[:status], "complete")
+      end
     end
 
 
