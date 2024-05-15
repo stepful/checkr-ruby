@@ -65,6 +65,7 @@ module Checkr
     api_class_method :create, :post
 
     api_instance_method :save, :post, default_params: :changed_attributes
+    api_instance_method :complete, :post, ':path/complete'
 
     def self.path
       '/v1/reports'
