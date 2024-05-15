@@ -20,13 +20,6 @@ module Checkr
         assert(report.is_a?(Report))
         assert_equal(test_report[:id], report.id)
       end
-
-      should 'be completeable' do
-        id = "report_id"
-        @mock.expects(:get).once.with("#{@report_url}/#{id}", anything, anything).returns(test_response(test_report))
-        report = Report.retrieve(id)
-        assert(report.is_a?(Report))
-      end
     end
 
     context 'Report instance' do
@@ -51,10 +44,8 @@ module Checkr
       end
 
       should 'be completeable' do
-        report = Report.new(test_report)
-
         @mock.expects(:post).once.with("#{@report_url}/#{test_report[:id]}/complete", anything, anything).returns(test_response(test_report))
-
+        report = Report.new(test_report)
         report.complete
         assert_equal(test_report[:status], "complete")
       end
